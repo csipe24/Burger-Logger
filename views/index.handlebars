@@ -1,7 +1,55 @@
 <ul>
     {{#each burgers}}
+        {{#unless devoured}}
     <li>{burger_name}</li>
+    <button class="devour" data-id="{{id}}">Devour!</button>
+    {{/unless}}
     {{/each}}
 </ul>
 
-<
+<ul>
+    {{#each burgers}}
+        {{#if devoured}}
+    <li>{burger_name}</li>
+    <button class="devour" data-id="{{id}}">Devour!</button>
+      {{/if}}
+    {{/each}}
+</ul>
+
+<form id="greatBurgerForm" action="/api/burgers" method="POST">
+<input type="text" name="burger_name">
+<button >Add Burger</button>
+</form>
+
+<script>
+    $("#greatBurgerForm").on("submit", (e)=>{
+        e.preventDefault();
+        const burgerData = {
+            burger_name : $('[name="burger_name"]').val();
+        }
+        $.ajax({
+            method: "POST",
+            url: "/api/burgers"
+            data:burgerData
+        }).then(()=>{
+            location.reload();
+        })
+    });
+
+    $(".devour")on("click", function(){
+        const burgerId = $(this).data("id");
+        console.log(burgerId);
+        const updateRoute = "/api/burgers/" + burgerId;
+        const burgerData = { devoured: true};
+
+          $.ajax({
+            method: "PUT",
+            url: updateRoute
+            data:{
+                devoured: true
+            }
+        }).then(()=>{
+            location.reload();
+        })
+    });
+</script>

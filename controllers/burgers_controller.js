@@ -9,3 +9,18 @@ router.get("/", (req, res)=>{
         burgers: results
     });
 });
+
+router.post("/api/burgers", () =>{
+    Burger.create(req.body, (result)=>{
+        res.({id: result.insertId});
+    });
+
+});
+
+router.put("/api/burgers:id", (req, res)=>{
+    Burger.update(req.body, req.params.id, (result)=>{
+        res.end();
+    })
+} )
+
+module.exports = router;
