@@ -3,16 +3,15 @@ const Burger = require("../models/burger");
 
 router.get("/", (req, res)=>{
     Burger.all("*", (results) => {
-
-    });
     res.render("index", {
         burgers: results
     });
 });
+});
 
 router.post("/api/burgers", () =>{
     Burger.create(req.body, (result)=>{
-        res.({id: result.insertId});
+        res.json({id: result.insertId});
     });
 
 });

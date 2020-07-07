@@ -19,5 +19,6 @@ const orm = {
             cb(results);
     })
     }
-
 }
+
+module.exports = orm;
