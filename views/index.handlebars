@@ -1,25 +1,44 @@
-<ul>
-    {{#each burgers}}
-        {{#unless devoured}}
-    <li>{burger_name}</li>
-    <button class="devour" data-id="{{id}}">Devour!</button>
-    {{/unless}}
-    {{/each}}
-</ul>
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Burger Tracker</h1>
+        <hr>
+    </div>
 
-<ul>
-    {{#each burgers}}
-        {{#if devoured}}
-    <li>{burger_name}</li>
-    <button class="devour" data-id="{{id}}">Devour!</button>
-      {{/if}}
-    {{/each}}
-</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+                <ul>
+                {{#each burgers}}
+                {{#unless devoured}}
+                <li>{{burger_name}}</li>
+                <button class="devour" data-id="{{id}}">Devour!</button>
+                {{/unless}}
+                {{/each}}
+                </ul>
+            </div>
 
-<form id="greatBurgerForm" action="/api/burgers" method="POST">
-<input type="text" name="burger_name">
-<button >Add Burger</button>
-</form>
+        <div class="col-6">
+                <ul>
+                {{#each burgers}}
+                {{#if devoured}}
+                <li>{{burger_name}}</li>
+                <button class="restore" data-id="{{id}}">Restore!</button>
+                {{/if}}
+                {{/each}}
+                </ul>
+            </div>
+</div>
+</div>
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h3>Add a Burger Station</h3>
+        <form id="greatBurgerForm" action="/api/burgers" method="POST">
+        <input type="text" name="burger_name" placeholder="Add Burger Name Here">
+        <button>Add Burger</button>
+        </form>
+    </div>
+
 
 <script>
     $("#greatBurgerForm").on("submit", (e)=>{
@@ -44,7 +63,24 @@
 
           $.ajax({
             method: "PUT",
-            url: updateRoute
+            url: updateRoute,
+            data:{
+                devoured: true
+            }
+        }).then(()=>{
+            location.reload();
+        })
+    });
+
+     $(".restore")on("click", function(){
+        const burgerId = $(this).data("id");
+        console.log(burgerId);
+        const updateRoute = "/api/burgers/" + burgerId;
+        const burgerData = { devoured: false};
+
+          $.ajax({
+            method: "PUT",
+            url: updateRoute,
             data:{
                 devoured: true
             }
