@@ -7,22 +7,22 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
+            <h2>Available</h2>
                 <ul>
                 {{#each burgers}}
                 {{#unless devoured}}
-                <li>{{burger_name}}</li>
-                <button class="devour" data-id="{{id}}">Devour!</button>
+                <li>{{burger_name}} <button class="devour" data-id="{{id}}">Devour!</button> </li>
                 {{/unless}}
                 {{/each}}
                 </ul>
             </div>
 
         <div class="col-6">
+            <h2>Devoured Burgers</h2>
                 <ul>
                 {{#each burgers}}
                 {{#if devoured}}
                 <li>{{burger_name}}</li>
-                <button class="restore" data-id="{{id}}">Restore!</button>
                 {{/if}}
                 {{/each}}
                 </ul>
@@ -44,46 +44,26 @@
     $("#greatBurgerForm").on("submit", (e)=>{
         e.preventDefault();
         const burgerData = {
-            burger_name : $('[name="burger_name"]').val();
+            burger_name : $('[name="burger_name"]').val()
         }
         $.ajax({
             method: "POST",
-            url: "/api/burgers"
+            url: "/api/burgers",
             data:burgerData
         }).then(()=>{
             location.reload();
         })
     });
 
-    $(".devour")on("click", function(){
+    $(".devour").on("click", function(){
         const burgerId = $(this).data("id");
-        console.log(burgerId);
-        const updateRoute = "/api/burgers/" + burgerId;
-        const burgerData = { devoured: true};
+        const updateRoute = "/api/burgers/"+burgerId;
+        const burgerData = {devoured: 1};
 
           $.ajax({
             method: "PUT",
             url: updateRoute,
-            data:{
-                devoured: true
-            }
-        }).then(()=>{
-            location.reload();
-        })
-    });
-
-     $(".restore")on("click", function(){
-        const burgerId = $(this).data("id");
-        console.log(burgerId);
-        const updateRoute = "/api/burgers/" + burgerId;
-        const burgerData = { devoured: false};
-
-          $.ajax({
-            method: "PUT",
-            url: updateRoute,
-            data:{
-                devoured: true
-            }
+            data: burgerData
         }).then(()=>{
             location.reload();
         })

@@ -4,7 +4,7 @@ const burger = {
     all(columns, cb){
         orm.selectAll(columns, "burgers", cb);
     },
-    update(newValues, cb){
+    update(newValues, targetId, cb){
         orm.updateOne("burgers", newValues, targetId, cb);
     },
     create(data, cb){

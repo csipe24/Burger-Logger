@@ -13,13 +13,12 @@ router.post("/api/burgers", (req, res) =>{
     Burger.create(req.body, (result)=>{
         res.json({id: result.insertId});
     });
-
 });
 
-router.put("/api/burgers:id", (req, res)=>{
+router.put("/api/burgers/:id", (req, res)=>{
     Burger.update(req.body, req.params.id, (result)=>{
         res.end();
-    })
-} )
+    });
+});
 
 module.exports = router;
