@@ -18,7 +18,7 @@ if(process.env.JAWSDB_URL){
     password: "Loggers123",
     database: "burgers_db"
   });
-  
+};
 
   connection.connect(function(err) {
     if (err) {
